@@ -2,746 +2,1075 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Join the exclusive RITUALS Beauty Test Club – Free participation for beauty fans." />
-  <meta name="robots" content="index, follow" />
-  <title>RITUALS Beauty Test Club | Exclusive Campaign</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Spin & Win – Claim Your Reward</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+  <!-- ============================================================
+       STYLES
+       ============================================================ -->
   <style>
+    /* ---------- CSS Reset & Variables ---------- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:    #faf8f5;
-      --white:    #ffffff;
-      --gold:     #b89b6e;
-      --gold-lt:  #d4bb96;
-      --gold-dk:  #8a7050;
-      --beige:    #ede8e0;
-      --beige-dk: #d9d0c2;
-      --text:     #2a2420;
-      --text-md:  #5c5148;
-      --text-lt:  #8a8078;
-      --shadow:   rgba(90,70,50,0.10);
-      --f-serif:  'Cormorant Garamond', Georgia, serif;
-      --f-sans:   'Jost', sans-serif;
-      --radius:   14px;
-      --trans:    0.35s cubic-bezier(.4,0,.2,1);
+      --bg-deep:    #07071A;
+      --bg-mid:     #12103A;
+      --gold:       #FFD700;
+      --gold-dim:   #C9A800;
+      --coral:      #FF4757;
+      --purple:     #7B2FFF;
+      --teal:       #00E5FF;
+      --white:      #FFFFFF;
+      --text-muted: rgba(255,255,255,0.55);
+      --radius:     16px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+
+      /* Wheel slice colours — 6 prizes */
+      --c1: #FF4757; /* coral-red   */
+      --c2: #FFD700; /* gold        */
+      --c3: #7B2FFF; /* purple      */
+      --c4: #00E5FF; /* teal        */
+      --c5: #FF9500; /* orange      */
+      --c6: #00C853; /* green       */
     }
 
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: var(--f-sans);
-      background: var(--cream);
-      color: var(--text);
-      line-height: 1.65;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-deep);
+      color: var(--white);
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ── LANGUAGE SWITCHER ── */
-    .lang-switcher {
-      display: flex;
-      gap: 4px;
-      align-items: center;
+    /* ---------- Animated starfield background ---------- */
+    .stars {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(123,47,255,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,71,87,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 60% 80%, rgba(0,229,255,0.08) 0%, transparent 60%),
+        var(--bg-deep);
+      pointer-events: none;
     }
-    .lang-btn {
-      background: none;
-      border: 1.5px solid var(--beige-dk);
-      border-radius: 50px;
-      padding: 5px 14px;
-      font-family: var(--f-sans);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-lt);
-      cursor: pointer;
-      transition: all var(--trans);
+    .stars::before, .stars::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 30%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 25%, rgba(255,255,255,0.3) 0%, transparent 100%);
+      animation: twinkle 4s ease-in-out infinite alternate;
     }
-    .lang-btn.active {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #fff;
-    }
-    .lang-btn:hover:not(.active) {
-      border-color: var(--gold-lt);
-      color: var(--gold);
+    .stars::after { animation-delay: 2s; animation-duration: 6s; }
+
+    @keyframes twinkle {
+      0%   { opacity: 0.4; }
+      100% { opacity: 1; }
     }
 
-    /* ── REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.10s; }
-    .reveal-delay-2 { transition-delay: 0.22s; }
-    .reveal-delay-3 { transition-delay: 0.34s; }
-    .reveal-delay-4 { transition-delay: 0.46s; }
+    /* ---------- Layout wrapper ---------- */
 
-    /* ── UTILITY ── */
-    .section { padding: 96px 24px; }
-    .container { max-width: 960px; margin: 0 auto; }
-    .tag {
-      display: inline-block;
-      font-family: var(--f-sans);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
-    h1, h2, h3 { font-family: var(--f-serif); font-weight: 400; line-height: 1.2; }
-    h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); letter-spacing: -0.01em; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
-    h3 { font-size: 1.3rem; }
-
-    /* ── CTA BUTTON ── */
-    .cta-btn {
-      display: inline-block;
-      padding: 17px 42px;
-      background: var(--gold);
-      color: #fff;
-      font-family: var(--f-sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 50px;
-      border: 1.5px solid var(--gold);
-      transition: background var(--trans), color var(--trans), transform var(--trans), box-shadow var(--trans);
-      box-shadow: 0 8px 28px rgba(184,155,110,0.28);
-      cursor: pointer;
-    }
-    .cta-btn:hover {
-      background: var(--gold-dk);
-      border-color: var(--gold-dk);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 38px rgba(184,155,110,0.38);
-    }
-    .cta-btn:active { transform: translateY(0); }
-    .cta-btn.outline {
-      background: transparent;
-      color: var(--gold);
-      box-shadow: none;
-    }
-    .cta-btn.outline:hover {
-      background: var(--gold);
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(184,155,110,0.28);
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(250,248,245,0.90);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--beige-dk);
-      padding: 14px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .nav-logo {
-      font-family: var(--f-serif);
-      font-size: 1.4rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .nav-logo span { color: var(--gold); }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-cta { font-size: 12px; padding: 11px 26px; }
-
-    /* ── HERO ── */
-    #hero {
-      padding-top: 130px;
-      padding-bottom: 80px;
-      background: var(--white);
-      overflow: hidden;
-    }
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-      max-width: 1080px;
+    .page {
+      position: relative; z-index: 1;
+      max-width: 480px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 16px 40px;
     }
-    .hero-text h1 { margin-bottom: 20px; }
-    .hero-sub {
-      font-size: 1.05rem;
-      color: var(--text-md);
-      font-weight: 300;
-      margin-bottom: 36px;
-      max-width: 400px;
-    }
-    .hero-meta {
-      margin-top: 28px;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      color: var(--text-lt);
-    }
-    .hero-meta em { color: var(--gold); font-style: normal; font-weight: 500; }
 
-    /* ── HERO VISUAL ── */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ---------- Top bar ---------- */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0 10px;
     }
-    .hero-card {
-      width: 100%;
-      max-width: 420px;
-      aspect-ratio: 3/4;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 24px 80px rgba(90,70,50,0.18);
-      position: relative;
+    .logo {
+      font-size: 1.2rem; font-weight: 800; letter-spacing: .5px;
+      background: linear-gradient(90deg, var(--gold), var(--coral));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .hero-card-bg {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(160deg, #e8ddd0 0%, #d2c3ae 40%, #c4aa8a 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
+    .live-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--coral);
+      background: rgba(255,71,87,0.12);
+      border: 1px solid rgba(255,71,87,0.35);
+      border-radius: 20px; padding: 4px 10px;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--coral);
+      animation: pulse-dot 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(1.6); }
+    }
+
+    /* ---------- Hero headline ---------- */
+    .hero {
       text-align: center;
-      position: relative;
+      padding: 8px 0 4px;
     }
-    .hero-card-bg::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 260px; height: 260px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.12);
+    .hero-eyebrow {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 8px;
     }
-    .hero-card-bg::after {
-      content: '';
-      position: absolute;
-      bottom: -40px; left: -40px;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.10);
+    .hero-title {
+      font-size: clamp(1.9rem, 8vw, 2.6rem);
+      font-weight: 900; line-height: 1.05;
+      letter-spacing: -1px;
     }
-    .hero-card-icon {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.30);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 24px;
-      font-size: 2.2rem;
-      position: relative; z-index: 1;
+    .hero-title span {
+      background: linear-gradient(135deg, var(--gold) 30%, var(--coral));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .hero-card-label {
-      font-family: var(--f-serif);
-      font-size: 1.6rem;
-      color: var(--white);
-      margin-bottom: 10px;
-      position: relative; z-index: 1;
+    .hero-sub {
+      font-size: 0.88rem; color: var(--text-muted);
+      margin-top: 8px; line-height: 1.5;
     }
-    .hero-card-sub {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
-      position: relative; z-index: 1;
+
+    /* ---------- Urgency bar ---------- */
+    .urgency-row {
+      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+      margin: 14px 0 6px;
     }
-    .hero-card-badge {
-      position: absolute;
-      bottom: 28px; right: 28px;
-      background: var(--white);
-      border-radius: 50px;
-      padding: 8px 16px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--gold-dk);
-      letter-spacing: 0.07em;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      z-index: 1;
-    }
-    .hero-float {
-      position: absolute;
-      top: -24px; left: -32px;
-      background: var(--beige);
-      border-radius: 18px;
-      padding: 16px 22px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-md);
-      box-shadow: 0 8px 28px var(--shadow);
-      border: 1px solid var(--beige-dk);
+    .urgency-pill {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.7rem; font-weight: 700;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 30px; padding: 5px 11px;
       white-space: nowrap;
     }
+    .urgency-pill .icon { font-size: 0.8rem; }
+    .urgency-pill.red   { color: var(--coral); border-color: rgba(255,71,87,0.35); background: rgba(255,71,87,0.08); }
+    .urgency-pill.gold  { color: var(--gold);  border-color: rgba(255,215,0,0.35); background: rgba(255,215,0,0.08); }
+    .urgency-pill.teal  { color: var(--teal);  border-color: rgba(0,229,255,0.35); background: rgba(0,229,255,0.08); }
 
-    /* ── DIVIDER ── */
-    .divider {
-      width: 60px; height: 1px;
-      background: var(--gold-lt);
-      margin: 0 auto 48px;
+    /* ---------- Countdown ---------- */
+    .countdown-wrap {
+      text-align: center; margin-bottom: 4px;
+    }
+    .countdown-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .countdown-timer {
+      display: inline-flex; gap: 6px; align-items: center;
+    }
+    .cd-block {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(255,215,0,0.08);
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 8px; padding: 4px 10px;
+      min-width: 44px;
+    }
+    .cd-num {
+      font-size: 1.3rem; font-weight: 900; color: var(--gold);
+      line-height: 1;
+    }
+    .cd-unit {
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .cd-sep {
+      font-size: 1.2rem; font-weight: 900; color: var(--gold);
+      margin-top: -6px;
     }
 
-    /* ── BENEFITS ── */
-    #benefits { background: var(--cream); }
-    .benefits-header { text-align: center; margin-bottom: 64px; }
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 32px;
-    }
-    .benefit-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      text-align: center;
-      box-shadow: 0 4px 24px var(--shadow);
-      border: 1px solid var(--beige);
-      transition: transform var(--trans), box-shadow var(--trans);
-    }
-    .benefit-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(90,70,50,0.14);
-    }
-    .benefit-check {
-      display: inline-block;
-      margin-bottom: 12px;
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold-lt), var(--gold));
-      color: white;
-      font-size: 14px;
-      line-height: 32px;
-      text-align: center;
-    }
-    .benefit-title { font-family: var(--f-serif); font-size: 1.15rem; margin-bottom: 8px; }
-    .benefit-desc { font-size: 13.5px; color: var(--text-lt); font-weight: 300; }
-
-    /* ── HOW IT WORKS ── */
-    #how { background: var(--white); }
-    .how-header { text-align: center; margin-bottom: 72px; }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 0;
+    /* ---------- Wheel section ---------- */
+    .wheel-section {
+      display: flex; flex-direction: column; align-items: center;
+      margin: 12px 0 4px;
       position: relative;
     }
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 36px;
-      left: calc(16.66% + 24px);
-      right: calc(16.66% + 24px);
-      height: 1px;
-      background: linear-gradient(90deg, var(--gold-lt), var(--gold), var(--gold-lt));
-      z-index: 0;
-    }
-    .step { text-align: center; padding: 0 28px; position: relative; z-index: 1; }
-    .step-num {
-      width: 72px; height: 72px;
+
+    /* Outer glow ring */
+    .wheel-ring {
+      position: relative;
+      padding: 8px;
       border-radius: 50%;
-      background: var(--cream);
-      border: 1.5px solid var(--gold-lt);
+      background: conic-gradient(
+        from 0deg,
+        rgba(255,215,0,0.6),
+        rgba(255,71,87,0.6),
+        rgba(123,47,255,0.6),
+        rgba(0,229,255,0.6),
+        rgba(255,149,0,0.6),
+        rgba(0,200,83,0.6),
+        rgba(255,215,0,0.6)
+      );
+      animation: ring-spin 8s linear infinite;
+      box-shadow:
+        0 0 30px rgba(255,215,0,0.35),
+        0 0 60px rgba(255,71,87,0.2),
+        0 0 90px rgba(123,47,255,0.15);
+    }
+    @keyframes ring-spin {
+      to { transform: rotate(360deg); }
+    }
+    .wheel-ring::before {
+      content: '';
+      position: absolute; inset: 4px;
+      border-radius: 50%;
+      background: var(--bg-deep);
+    }
+
+    /* Canvas pointer triangle at top */
+    .wheel-pointer {
+      position: absolute;
+      top: 2px; left: 50%; transform: translateX(-50%);
+      z-index: 10;
+      width: 0; height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 28px solid var(--gold);
+      filter: drop-shadow(0 0 6px rgba(255,215,0,0.9));
+    }
+
+    #wheelCanvas {
+      position: relative; z-index: 2;
+      border-radius: 50%;
+      display: block;
+    }
+
+    /* Centre hub overlay */
+    .wheel-hub {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #ffffff, #e0c200);
+      border: 4px solid var(--bg-deep);
+      box-shadow: 0 0 0 3px var(--gold), 0 0 20px rgba(255,215,0,0.7);
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 24px;
-      font-family: var(--f-serif);
-      font-size: 1.6rem;
-      color: var(--gold);
+      font-size: 1.4rem;
+      pointer-events: none;
     }
-    .step-title { font-family: var(--f-serif); font-size: 1.25rem; margin-bottom: 10px; }
-    .step-desc { font-size: 13.5px; color: var(--text-lt); font-weight: 300; line-height: 1.6; }
-    .how-cta { text-align: center; margin-top: 56px; }
 
-    /* ── TRUST ── */
-    #trust {
-      background: linear-gradient(135deg, #2a2420 0%, #3d3028 100%);
-      padding: 72px 24px;
+    /* ---------- Spin button ---------- */
+    .spin-btn-wrap {
+      position: relative; width: 100%;
+      display: flex; justify-content: center;
+      margin: 18px 0 8px;
     }
-    .trust-inner {
-      max-width: 820px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 48px; text-align: center;
+    #spinBtn {
+      cursor: pointer; border: none; outline: none;
+      background: linear-gradient(135deg, #FF8C00 0%, var(--coral) 60%, #C40027 100%);
+      color: var(--white);
+      font-size: 1.3rem; font-weight: 900;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 18px 52px;
+      border-radius: 50px;
+      box-shadow:
+        0 0 0 4px rgba(255,71,87,0.25),
+        0 8px 30px rgba(255,71,87,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+      animation: btn-pulse 2.2s ease-in-out infinite;
     }
-    .trust-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
-    .trust-title { font-family: var(--f-serif); font-size: 1.1rem; color: var(--gold-lt); margin-bottom: 8px; }
-    .trust-desc { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 300; }
+    @keyframes btn-pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(255,71,87,0.25), 0 8px 30px rgba(255,71,87,0.45), inset 0 1px 0 rgba(255,255,255,0.2); }
+      50%       { box-shadow: 0 0 0 12px rgba(255,71,87,0.08), 0 12px 40px rgba(255,71,87,0.6), inset 0 1px 0 rgba(255,255,255,0.2); }
+    }
+    #spinBtn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+    }
+    #spinBtn:hover:not(:disabled)  { transform: translateY(-2px) scale(1.03); }
+    #spinBtn:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+    #spinBtn:disabled {
+      cursor: not-allowed; opacity: 0.6;
+      animation: none;
+    }
 
-    /* ── SCARCITY ── */
-    #scarcity { background: var(--cream); text-align: center; padding: 80px 24px; }
-    .scarcity-box {
-      max-width: 620px; margin: 0 auto;
-      background: var(--white); border-radius: 20px;
-      padding: 48px; box-shadow: 0 8px 40px var(--shadow);
-      border: 1px solid var(--beige); position: relative; overflow: hidden;
+    .spin-note {
+      font-size: 0.7rem; color: var(--text-muted); text-align: center;
+      margin-top: 4px;
     }
-    .scarcity-box::before {
-      content: ''; position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--gold-lt), var(--gold), var(--gold-lt));
-    }
-    .scarcity-label {
-      font-size: 11px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold);
-      font-weight: 600; margin-bottom: 16px;
-    }
-    .scarcity-title { font-family: var(--f-serif); font-size: clamp(1.5rem,4vw,2.2rem); margin-bottom: 16px; }
-    .scarcity-desc { font-size: 15px; color: var(--text-md); font-weight: 300; margin-bottom: 36px; }
-    .spots-bar { background: var(--beige); border-radius: 50px; height: 8px; margin: 0 0 10px; overflow: hidden; }
-    .spots-fill { width: 78%; height: 100%; background: linear-gradient(90deg, var(--gold-lt), var(--gold)); border-radius: 50px; }
-    .spots-label { font-size: 12px; color: var(--text-lt); margin-bottom: 36px; }
 
-    /* ── FINAL CTA ── */
-    #final-cta { background: var(--white); text-align: center; padding: 96px 24px; }
-    .final-inner { max-width: 600px; margin: 0 auto; }
-    .final-inner h2 { margin-bottom: 16px; }
-    .final-sub { font-size: 15px; color: var(--text-md); font-weight: 300; margin-bottom: 40px; }
-    .final-meta { margin-top: 24px; font-size: 12px; color: var(--text-lt); letter-spacing: 0.05em; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--text);
-      color: rgba(255,255,255,0.45);
+    /* ---------- Prizes strip ---------- */
+.prize-icon img{
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+    .prizes-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin: 16px 0;
+    }
+    .prize-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 10px 8px;
       text-align: center;
-      padding: 36px 24px;
-      font-size: 12px;
-      line-height: 1.8;
+      transition: var(--transition);
     }
-    footer a { color: rgba(255,255,255,0.45); text-decoration: underline; }
+    .prize-card:hover { border-color: rgba(255,215,0,0.3); background: rgba(255,215,0,0.06); }
+    .prize-icon { font-size: 1.5rem; line-height: 1; }
+    .prize-name { font-size: 0.62rem; font-weight: 700; color: var(--text-muted); margin-top: 5px; line-height: 1.3; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 820px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
-      .hero-sub { max-width: 100%; }
-      .hero-visual { order: -1; }
-      .hero-float { display: none; }
-      .hero-card { max-width: 300px; margin: 0 auto; }
-      .steps { grid-template-columns: 1fr; gap: 40px; }
-      .steps::before { display: none; }
-      .trust-inner { grid-template-columns: 1fr; gap: 36px; }
-      .scarcity-box { padding: 36px 24px; }
+    /* ---------- Activity feed ---------- */
+    .feed-section {
+      margin-top: 20px;
     }
-    @media (max-width: 520px) {
-      nav { padding: 12px 16px; }
-      .nav-cta { display: none; }
-      .section { padding: 72px 20px; }
-      .benefits-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .lang-btn { padding: 5px 10px; }
+    .feed-header {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .feed-header::before, .feed-header::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .feed-list {
+      display: flex; flex-direction: column; gap: 7px;
+      max-height: 180px; overflow: hidden;
+      position: relative;
+    }
+    .feed-list::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, var(--bg-deep));
+      pointer-events: none;
+    }
+    .feed-item {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.78rem;
+      animation: feed-slide 0.5s ease forwards;
+    }
+    @keyframes feed-slide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .feed-avatar {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--purple), var(--coral));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800;
+    }
+    .feed-text { flex: 1; line-height: 1.35; }
+    .feed-text strong { color: var(--white); }
+    .feed-text em { color: var(--gold); font-style: normal; font-weight: 700; }
+    .feed-time { font-size: 0.65rem; color: var(--text-muted); flex-shrink: 0; }
+
+    /* ---------- Trust footer ---------- */
+    .trust-bar {
+      display: flex; justify-content: center; gap: 20px;
+      margin-top: 24px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .trust-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+    .trust-icon { font-size: 1.1rem; }
+    .trust-label { font-size: 0.6rem; color: var(--text-muted); font-weight: 600; letter-spacing: .5px; }
+
+    /* ============================================================
+       MODAL / POPUP
+       ============================================================ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1; pointer-events: all;
+    }
+    .modal {
+      background: linear-gradient(160deg, #1C1550 0%, #0E0B2E 100%);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 24px;
+      padding: 32px 24px 28px;
+      width: 100%; max-width: 360px;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(123,47,255,0.4), 0 0 120px rgba(255,215,0,0.15);
+      transform: scale(0.85);
+      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+      position: relative; overflow: hidden;
+    }
+    .modal-overlay.show .modal { transform: scale(1); }
+
+    .modal::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .modal-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,200,83,0.12);
+      border: 1px solid rgba(0,200,83,0.4);
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 0.7rem; font-weight: 700;
+      color: #00C853; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .modal-trophy { font-size: 3.8rem; line-height: 1; margin-bottom: 12px; animation: trophy-bounce 0.6s ease 0.3s both; }
+    @keyframes trophy-bounce {
+      0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+      70%  { transform: scale(1.15) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    .modal-title {
+      font-size: 1.55rem; font-weight: 900; line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .modal-title span {
+      background: linear-gradient(90deg, var(--gold), var(--coral));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .modal-prize-reveal {
+      font-size: 1.05rem; font-weight: 800;
+      color: var(--teal);
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.25);
+      border-radius: 10px;
+      padding: 10px 16px;
+      margin: 14px 0;
+    }
+    .modal-sub {
+      font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    .modal-cta {
+      display: block; width: 100%;
+      background: linear-gradient(135deg, #00C853, #009624);
+      color: var(--white);
+      font-size: 1.1rem; font-weight: 900;
+      letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0,200,83,0.45);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .modal-cta::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    }
+    .modal-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 35px rgba(0,200,83,0.6); }
+    .modal-cta:active { transform: translateY(0); }
+
+    .modal-disclaimer {
+      font-size: 0.62rem; color: var(--text-muted);
+      margin-top: 12px; line-height: 1.5;
+    }
+
+    /* ============================================================
+       CONFETTI CANVAS
+       ============================================================ */
+    #confettiCanvas {
+      position: fixed; inset: 0; z-index: 99;
+      pointer-events: none;
+    }
+
+    /* ---------- Responsive tweaks ---------- */
+    @media (max-width: 380px) {
+      .urgency-row { gap: 5px; }
+      .urgency-pill { font-size: 0.65rem; padding: 4px 8px; }
+      .prizes-strip { gap: 6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wheel-ring, #spinBtn, .live-dot { animation: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── NAV ── -->
-  <nav>
-    <a href="#" class="nav-logo">Rituals <span>Club</span></a>
-    <div class="nav-right">
-      <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
-        <button class="lang-btn" onclick="setLang('de')" id="btn-de">DE</button>
-      </div>
-      <a href="https://trksy.org/aff_c?offer_id=4625&aff_id=181591"
-         class="cta-btn nav-cta" target="_blank" rel="noopener"
-         data-en="Apply Now" data-de="Jetzt bewerben">Apply Now</a>
-    </div>
-  </nav>
+<!-- Starfield -->
+<div class="stars" aria-hidden="true"></div>
 
-  <!-- ── HERO ── -->
-  <section id="hero">
-    <div class="hero-inner">
-      <div class="hero-text reveal">
-        <span class="tag"
-          data-en="Exclusive · Beauty · 2025"
-          data-de="Exklusiv · Beauty · 2025">Exclusive · Beauty · 2025</span>
-        <h1
-          data-en="Join the RITUALS Beauty Test Club"
-          data-de="Werde Teil des RITUALS Beauty&#8209;Testclubs">Join the RITUALS Beauty Test Club</h1>
-        <p class="hero-sub"
-          data-en="An exclusive testing campaign for beauty fans – free, effortless &amp; done in less than 30 seconds."
-          data-de="Exklusive Testaktion für Beauty-Fans – kostenlos, unkompliziert &amp; in weniger als 30 Sekunden.">An exclusive testing campaign for beauty fans – free, effortless &amp; done in less than 30 seconds.</p>
-        <a href="https://trksy.org/aff_c?offer_id=4625&aff_id=181591"
-           class="cta-btn" target="_blank" rel="noopener"
-           data-en="Apply for Free Now"
-           data-de="Jetzt kostenlos bewerben">Apply for Free Now</a>
-        <p class="hero-meta"
-          data-en="🔒 Free &amp; non-binding &nbsp;|&nbsp; <em>Exclusive Campaign</em>"
-          data-de="🔒 Kostenlos &amp; unverbindlich &nbsp;|&nbsp; <em>Nur für Deutschland</em>">🔒 Free &amp; non-binding &nbsp;|&nbsp; <em>Exclusive Campaign</em></p>
-      </div>
-      <div class="hero-visual reveal reveal-delay-2">
-        <div class="hero-card">
-          <div class="hero-card-bg">
-            <div class="hero-card-icon">🌸</div>
-            <p class="hero-card-label"
-              data-en="Beauty Test Club"
-              data-de="Beauty Testclub">Beauty Test Club</p>
-            <p class="hero-card-sub">Rituals · Exclusive</p>
-          </div>
-          <div class="hero-card-badge">✦ <span
-            data-en="Exclusive"
-            data-de="Exklusiv">Exclusive</span></div>
-        </div>
-        <div class="hero-float"
-          data-en="For Beauty Fans 🌿"
-          data-de="Für Beauty-Fans 🌿">For Beauty Fans 🌿</div>
-      </div>
+<!-- Confetti canvas (drawn by JS) -->
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+<!-- ============================================================
+     PAGE CONTENT
+     ============================================================ -->
+<div class="page">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="logo">🎰 SpinWin</div>
+    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-eyebrow">✦ Exclusive Offer – Today Only ✦</p>
+    <h1 class="hero-title">Spin to <span>Unlock<br>Your Prize</span></h1>
+    <p class="hero-sub">One free spin. Real rewards. No purchase needed.</p>
+  </section>
+
+  <!-- Urgency pills -->
+  <div class="urgency-row" role="status" aria-live="polite">
+    <div class="urgency-pill red"><span class="icon">🔥</span> Only 3 rewards left</div>
+    <div class="urgency-pill gold"><span class="icon">👥</span> <span id="userCount">18</span> playing now</div>
+    <div class="urgency-pill teal"><span class="icon">⏳</span> Offer expires today</div>
+  </div>
+
+  <!-- Countdown timer -->
+  <div class="countdown-wrap" aria-label="Offer countdown">
+    <p class="countdown-label">Offer closes in</p>
+    <div class="countdown-timer">
+      <div class="cd-block"><span class="cd-num" id="cdH">02</span><span class="cd-unit">Hrs</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-block"><span class="cd-num" id="cdM">47</span><span class="cd-unit">Min</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-block"><span class="cd-num" id="cdS">33</span><span class="cd-unit">Sec</span></div>
+    </div>
+  </div>
+
+  <!-- ===== WHEEL ===== -->
+  <section class="wheel-section" aria-label="Spinning prize wheel">
+    <div class="wheel-pointer" aria-hidden="true"></div>
+    <div class="wheel-ring">
+      <canvas id="wheelCanvas" width="300" height="300" role="img" aria-label="Prize wheel"></canvas>
+      <!-- Centre hub rendered on top of canvas via absolute positioning inside ring -->
+      <div class="wheel-hub" aria-hidden="true">⭐</div>
     </div>
   </section>
 
-  <!-- ── BENEFITS ── -->
-  <section id="benefits" class="section">
-    <div class="container">
-      <div class="benefits-header reveal">
-        <span class="tag"
-          data-en="Your Benefits"
-          data-de="Deine Vorteile">Your Benefits</span>
-        <h2
-          data-en="Why Join the Test Club?"
-          data-de="Warum am Testclub teilnehmen?">Why Join the Test Club?</h2>
-        <div class="divider" style="margin-top:24px;"></div>
-      </div>
-      <div class="benefits-grid">
-        <div class="benefit-card reveal reveal-delay-1">
-          <span class="benefit-check">✓</span>
-          <p class="benefit-title"
-            data-en="Free Participation"
-            data-de="Kostenlose Teilnahme">Free Participation</p>
-          <p class="benefit-desc"
-            data-en="No hidden costs – your application is completely free."
-            data-de="Keine versteckten Kosten – deine Bewerbung ist vollständig kostenlos.">No hidden costs – your application is completely free.</p>
-        </div>
-        <div class="benefit-card reveal reveal-delay-2">
-          <span class="benefit-check">✓</span>
-          <p class="benefit-title"
-            data-en="Exclusive Test Campaigns"
-            data-de="Exklusive Testaktionen">Exclusive Test Campaigns</p>
-          <p class="benefit-desc"
-            data-en="Get access to hand-picked beauty &amp; wellness test campaigns."
-            data-de="Erhalte Zugang zu ausgewählten Beauty- und Wellness-Testaktionen.">Get access to hand-picked beauty &amp; wellness test campaigns.</p>
-        </div>
-        <div class="benefit-card reveal reveal-delay-3">
-          <span class="benefit-check">✓</span>
-          <p class="benefit-title"
-            data-en="Fast &amp; Simple Sign-up"
-            data-de="Nur für Deutschland">Fast &amp; Simple Sign-up</p>
-          <p class="benefit-desc"
-            data-en="Register in seconds – no lengthy paperwork required."
-            data-de="Diese Aktion gilt exklusiv für Teilnehmerinnen aus Deutschland.">Register in seconds – no lengthy paperwork required.</p>
-        </div>
-        <div class="benefit-card reveal reveal-delay-4">
-          <span class="benefit-check">✓</span>
-          <p class="benefit-title"
-            data-en="Done in 30 Seconds"
-            data-de="In 30 Sekunden dabei">Done in 30 Seconds</p>
-          <p class="benefit-desc"
-            data-en="Quick, easy application – join the club without any hassle."
-            data-de="Schnelle, einfache Anmeldung – ohne langen Papierkram.">Quick, easy application – join the club without any hassle.</p>
-        </div>
-      </div>
+  <!-- Spin button -->
+  <div class="spin-btn-wrap">
+    <button id="spinBtn" aria-label="Spin the wheel">🎡 SPIN NOW</button>
+  </div>
+  <p class="spin-note">🔒 Free spin · No credit card required</p>
+
+  <!-- Prize icons strip -->
+  <div class="prizes-strip" aria-label="Available prizes">
+
+  <div class="prize-card">
+    <div class="prize-icon">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi6U-KSnY_r4hsTsVxDuaaM1suHkBJRHcyaf65xF5PJQ&s=10" alt="Amazon">
+    </div>
+    <div class="prize-name">Amazon Gift Card</div>
+  </div>
+
+  <div class="prize-card">
+    <div class="prize-icon">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThPo1vrggwZwmmb2RCd0w5xGigQPmzELjcXRO5lEoESyi7T1DW5RHM1QQ&s=10" alt="Walmart">
+    </div>
+    <div class="prize-name">Walmart Reward</div>
+  </div>
+
+  <div class="prize-card">
+    <div class="prize-icon">
+      <img src="https://cdn.sp-selfservice.com/ml/7180625-f-9f548d31-04b6-4807-824c-ad3c56a4b5b5.png?width=320&height=320&whitespace=true" alt="Apple">
+    </div>
+    <div class="prize-name">iPhone 16 Pro Max</div>
+  </div>
+
+  <div class="prize-card">
+    <div class="prize-icon">
+      <img src="https://cdn-icons-png.magnific.com/512/10004/10004034.png" alt="Mystery Box">
+    </div>
+    <div class="prize-name">Mystery Box</div>
+  </div>
+
+  <div class="prize-card">
+    <div class="prize-icon">
+      <img src="https://play-lh.googleusercontent.com/9v08ai07I8aoFLj5M-90nzWPpvyNzOVgA2ZWF9avdW7oS8L9YqF9trVI44SUn2qGTA0" alt="Temu">
+    </div>
+    <div class="prize-name">Temu Coupon</div>
+  </div>
+
+  <div class="prize-card">
+    <div class="prize-icon">
+      <img src="https://cdn-icons-png.flaticon.com/512/6963/6963703.png" alt="Shopping Credit">
+    </div>
+    <div class="prize-name">Free Shopping Credit</div>
+  </div>
+
+</div>
+  <!-- Activity feed -->
+  <section class="feed-section" aria-label="Recent winners">
+    <div class="feed-header">Recent Winners</div>
+    <div class="feed-list" id="feedList">
+      <!-- Populated by JS -->
     </div>
   </section>
 
-  <!-- ── HOW IT WORKS ── -->
-  <section id="how" class="section">
-    <div class="container">
-      <div class="how-header reveal">
-        <span class="tag"
-          data-en="How It Works"
-          data-de="So einfach geht's">How It Works</span>
-        <h2
-          data-en="3 Simple Steps to Join"
-          data-de="In 3 Schritten zur Teilnahme">3 Simple Steps to Join</h2>
-        <div class="divider" style="margin-top:24px;"></div>
-      </div>
-      <div class="steps">
-        <div class="step reveal reveal-delay-1">
-          <div class="step-num">1</div>
-          <h3 class="step-title"
-            data-en="Start Your Application"
-            data-de="Bewerbung starten">Start Your Application</h3>
-          <p class="step-desc"
-            data-en="Click the button and open the application form. Quick, secure &amp; free."
-            data-de="Klicke auf den Button und öffne das Bewerbungsformular. Schnell, sicher &amp; kostenlos.">Click the button and open the application form. Quick, secure &amp; free.</p>
-        </div>
-        <div class="step reveal reveal-delay-2">
-          <div class="step-num">2</div>
-          <h3 class="step-title"
-            data-en="Provide Brief Details"
-            data-de="Kurze Angaben machen">Provide Brief Details</h3>
-          <p class="step-desc"
-            data-en="Fill out a short form in seconds – no complicated registration needed."
-            data-de="Fülle in wenigen Sekunden ein kurzes Formular aus – ganz ohne aufwändige Registrierung.">Fill out a short form in seconds – no complicated registration needed.</p>
-        </div>
-        <div class="step reveal reveal-delay-3">
-          <div class="step-num">3</div>
-          <h3 class="step-title"
-            data-en="Confirm Participation"
-            data-de="Teilnahme bestätigen">Confirm Participation</h3>
-          <p class="step-desc"
-            data-en="Confirm your details and your application will be reviewed promptly."
-            data-de="Bestätige deine Angaben und deine Bewerbung wird umgehend geprüft.">Confirm your details and your application will be reviewed promptly.</p>
-        </div>
-      </div>
-      <div class="how-cta reveal">
-        <a href="https://trksy.org/aff_c?offer_id=4625&aff_id=181591"
-           class="cta-btn outline" target="_blank" rel="noopener"
-           data-en="Start Step 1 Now"
-           data-de="Jetzt Schritt 1 starten">Start Step 1 Now</a>
-      </div>
-    </div>
-  </section>
+  <!-- Trust bar -->
+  <div class="trust-bar" role="list">
+    <div class="trust-item" role="listitem"><span class="trust-icon">🔒</span><span class="trust-label">Secure</span></div>
+    <div class="trust-item" role="listitem"><span class="trust-icon">✅</span><span class="trust-label">Verified</span></div>
+    <div class="trust-item" role="listitem"><span class="trust-icon">🌟</span><span class="trust-label">4.9 Rating</span></div>
+    <div class="trust-item" role="listitem"><span class="trust-icon">🎖️</span><span class="trust-label">Trusted</span></div>
+  </div>
 
-  <!-- ── TRUST ── -->
-  <section id="trust">
-    <div class="trust-inner">
-      <div class="trust-item reveal reveal-delay-1">
-        <span class="trust-icon">🌍</span>
-        <p class="trust-title"
-          data-en="Many Applications Already"
-          data-de="Bereits viele Bewerbungen">Many Applications Already</p>
-        <p class="trust-desc"
-          data-en="Thousands of beauty fans have already applied for the test club."
-          data-de="Tausende Beauty-Fans aus Deutschland haben sich bereits beworben.">Thousands of beauty fans have already applied for the test club.</p>
-      </div>
-      <div class="trust-item reveal reveal-delay-2">
-        <span class="trust-icon">🔒</span>
-        <p class="trust-title"
-          data-en="Secure Participation"
-          data-de="Sichere Teilnahme">Secure Participation</p>
-        <p class="trust-desc"
-          data-en="Your data is handled confidentially in accordance with GDPR standards."
-          data-de="Deine Daten werden vertraulich und nach DSGVO-Standard verarbeitet.">Your data is handled confidentially in accordance with GDPR standards.</p>
-      </div>
-      <div class="trust-item reveal reveal-delay-3">
-        <span class="trust-icon">🛡️</span>
-        <p class="trust-title"
-          data-en="Privacy-Friendly"
-          data-de="Datenschutz-freundlich">Privacy-Friendly</p>
-        <p class="trust-desc"
-          data-en="No third-party sharing. Your privacy is our highest priority."
-          data-de="Keine Weitergabe an Dritte. Deine Privatsphäre hat höchste Priorität.">No third-party sharing. Your privacy is our highest priority.</p>
-      </div>
-    </div>
-  </section>
+</div><!-- /.page -->
 
-  <!-- ── SCARCITY ── -->
-  <section id="scarcity" class="section">
-    <div class="scarcity-box reveal">
-      <p class="scarcity-label"
-        data-en="⚠ Limited Availability"
-        data-de="⚠ Begrenzte Verfügbarkeit">⚠ Limited Availability</p>
-      <h2 class="scarcity-title"
-        data-en="Only Limited Test Spots Available"
-        data-de="Nur begrenzte Testplätze verfügbar">Only Limited Test Spots Available</h2>
-      <p class="scarcity-desc"
-        data-en="Due to high demand, only a few spots in the Beauty Test Club remain open. Secure your place now."
-        data-de="Aufgrund der hohen Nachfrage sind aktuell nur noch wenige Plätze im Beauty-Testclub offen. Sichere dir jetzt deinen Platz.">Due to high demand, only a few spots in the Beauty Test Club remain open. Secure your place now.</p>
-      <div class="spots-bar"><div class="spots-fill"></div></div>
-      <p class="spots-label"
-        data-en="Available spots are currently being allocated"
-        data-de="Verfügbare Plätze werden gerade vergeben">Available spots are currently being allocated</p>
-      <a href="https://trksy.org/aff_c?offer_id=4625&aff_id=181591"
-         class="cta-btn" target="_blank" rel="noopener"
-         data-en="Secure My Spot Now"
-         data-de="Jetzt Platz sichern">Secure My Spot Now</a>
-    </div>
-  </section>
-
-  <!-- ── FINAL CTA ── -->
-  <section id="final-cta">
-    <div class="final-inner reveal">
-      <span class="tag"
-        data-en="Ready?"
-        data-de="Bereit?">Ready?</span>
-      <h2
-        data-en="Apply for Free Now"
-        data-de="Jetzt kostenlos bewerben">Apply for Free Now</h2>
-      <p class="final-sub"
-        data-en="Join the exclusive RITUALS Beauty Test Club and experience wellness &amp; beauty at the highest level."
-        data-de="Schließe dich dem exklusiven RITUALS Beauty-Testclub an und erlebe Wellness &amp; Beauty auf höchstem Niveau.">Join the exclusive RITUALS Beauty Test Club and experience wellness &amp; beauty at the highest level.</p>
-      <a href="https://trksy.org/aff_c?offer_id=4625&aff_id=181591"
-         class="cta-btn" target="_blank" rel="noopener"
-         data-en="Secure My Participation"
-         data-de="Jetzt Teilnahme sichern">Secure My Participation</a>
-      <p class="final-meta"
-        data-en="🔒 Free · Secure · GDPR-compliant"
-        data-de="🔒 Kostenlos · Sicher · DSGVO-konform · Nur Deutschland">🔒 Free · Secure · GDPR-compliant</p>
-    </div>
-  </section>
-
-  <!-- ── FOOTER ── -->
-  <footer>
-    <p>© 2025 RITUALS Beauty Test Club · All rights reserved</p>
-    <p style="margin-top:8px;"
-      data-en="This page is an advertisement. Participation is voluntary and free of charge.<br>Data is processed in accordance with current GDPR guidelines."
-      data-de="Diese Seite ist eine Werbeseite. Die Teilnahme ist freiwillig und kostenlos.<br>Datenschutz wird nach aktuellen DSGVO-Richtlinien gewährleistet.">This page is an advertisement. Participation is voluntary and free of charge.<br>Data is processed in accordance with current GDPR guidelines.</p>
-    <p style="margin-top:8px;">
-      <a href="https://trksy.org/aff_c?offer_id=4625&aff_id=181591" target="_blank" rel="noopener"
-        data-en="Go to Application"
-        data-de="Zur Bewerbung">Go to Application</a>
+<!-- ============================================================
+     WIN MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="winModal" role="dialog" aria-modal="true" aria-label="You won!">
+  <div class="modal">
+    <div class="modal-badge">✓ Reward Unlocked</div>
+    <div class="modal-trophy">🏆</div>
+    <h2 class="modal-title">Congratulations!<br><span>You Unlocked a Reward.</span></h2>
+    <div class="modal-prize-reveal" id="modalPrizeName">Amazon Gift Card</div>
+    <p class="modal-sub">
+      Your reward has been reserved for <strong>10 minutes</strong>.
+      Click below to claim before it expires.
     </p>
-  </footer>
+    <!-- CTA — replace href with your actual tracking link -->
+    <a
+      class="modal-cta"
+      id="modalCta"
+      href="https://trksy.org/aff_c?offer_id=1300&aff_id=181591"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      🎁 Continue &amp; Claim Now
+    </a>
+    <p class="modal-disclaimer">By continuing you agree to the offer terms. Limited time only.</p>
+  </div>
+</div>
 
-  <script>
-    var LANG = 'en';
 
-    function setLang(lang) {
-      LANG = lang;
-      document.documentElement.lang = lang === 'de' ? 'de' : 'en';
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+"use strict";
 
-      document.querySelectorAll('[data-en]').forEach(function(el) {
-        var val = el.getAttribute('data-' + lang);
-        if (val === null) return;
-        el.innerHTML = val;
-      });
+/* ==========================================================
+   1. PRIZE DATA
+   ========================================================== */
+const PRIZES = [
+  { label: "Amazon\nGift Card", icon: "🎁", color: "#FF4757", textColor: "#fff" },
+  { label: "Walmart\nReward",   icon: "🛒", color: "#FFD700", textColor: "#1a1a1a" },
+  { label: "iPhone 16",         icon: "📱", color: "#7B2FFF", textColor: "#fff" },
+  { label: "Mystery\nBox",      icon: "📦", color: "#00E5FF", textColor: "#0a0a2a" },
+  { label: "Temu\nCoupon",      icon: "🏷️", color: "#FF9500", textColor: "#fff" },
+  { label: "Free Shopping\nCredit", icon: "💳", color: "#00C853", textColor: "#fff" },
+];
+const NUM_SLICES = PRIZES.length;
 
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-      document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+/* ==========================================================
+   2. WHEEL DRAWING
+   ========================================================== */
+const canvas  = document.getElementById("wheelCanvas");
+const ctx     = canvas.getContext("2d");
+const SIZE    = 300;
+const CX      = SIZE / 2;
+const CY      = SIZE / 2;
+const RADIUS  = SIZE / 2 - 2; // slight inset so edges don't clip
+const SLICE   = (2 * Math.PI) / NUM_SLICES;
 
-      if (lang === 'de') {
-        document.title = 'RITUALS Beauty-Testclub | Exklusive Testaktion Deutschland';
-        document.querySelector('meta[name="description"]').content =
-          'Werde Teil des exklusiven RITUALS Beauty-Testclubs – Kostenlose Teilnahme für Beauty-Fans in Deutschland.';
-      } else {
-        document.title = 'RITUALS Beauty Test Club | Exclusive Campaign';
-        document.querySelector('meta[name="description"]').content =
-          'Join the exclusive RITUALS Beauty Test Club – Free participation for beauty fans.';
-      }
+// currentAngle: the rotation offset (radians). 0 = "first slice straddles the top pointer".
+let currentAngle = 0;
+
+function drawWheel(angle) {
+  ctx.clearRect(0, 0, SIZE, SIZE);
+
+  PRIZES.forEach((prize, i) => {
+    const start = angle + i * SLICE - Math.PI / 2 - SLICE / 2;
+    const end   = start + SLICE;
+
+    /* --- Slice fill --- */
+    ctx.beginPath();
+    ctx.moveTo(CX, CY);
+    ctx.arc(CX, CY, RADIUS, start, end);
+    ctx.closePath();
+
+    // Gradient fill for depth
+    const grad = ctx.createRadialGradient(CX, CY, 0, CX, CY, RADIUS);
+    grad.addColorStop(0, lighten(prize.color, 40));
+    grad.addColorStop(1, prize.color);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    /* --- Slice border --- */
+    ctx.strokeStyle = "rgba(0,0,0,0.45)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    /* --- Label --- */
+    ctx.save();
+    ctx.translate(CX, CY);
+    ctx.rotate(start + SLICE / 2);
+
+    // Text shadow for legibility
+    ctx.shadowColor = "rgba(0,0,0,0.55)";
+    ctx.shadowBlur = 4;
+
+    const lines = prize.label.split("\n");
+    const labelR = RADIUS * 0.62; // how far from centre
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    // Icon
+    ctx.font = "18px sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.fillText(prize.icon, labelR + 10, 0);
+
+    // Text lines
+    ctx.font = "bold 10.5px -apple-system, sans-serif";
+    ctx.fillStyle = prize.textColor;
+    lines.forEach((line, li) => {
+      const yOff = (li - (lines.length - 1) / 2) * 13 - 18;
+      ctx.fillText(line, labelR + 10, yOff);
+    });
+
+    ctx.restore();
+  });
+
+  /* --- Centre circle (hidden behind wheel-hub div) --- */
+  ctx.beginPath();
+  ctx.arc(CX, CY, 26, 0, 2 * Math.PI);
+  ctx.fillStyle = "#0A0A1A";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,215,0,0.5)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+// Simple colour lightener (hex → hex)
+function lighten(hex, amt) {
+  const num = parseInt(hex.slice(1), 16);
+  const r = Math.min(255, (num >> 16) + amt);
+  const g = Math.min(255, ((num >> 8) & 0xff) + amt);
+  const b = Math.min(255, (num & 0xff) + amt);
+  return `rgb(${r},${g},${b})`;
+}
+
+drawWheel(0);
+
+/* ==========================================================
+   3. SPIN LOGIC — always lands on a winning slice
+   ========================================================== */
+let spinning = false;
+
+const spinBtn   = document.getElementById("spinBtn");
+const winModal  = document.getElementById("winModal");
+const prizeEl   = document.getElementById("modalPrizeName");
+
+// Audio context (for click tick sound during spin)
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTick() {
+  try {
+    const ac  = getAudioCtx();
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.connect(gain); gain.connect(ac.destination);
+    osc.frequency.value = 440 + Math.random() * 200;
+    gain.gain.setValueAtTime(0.12, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.05);
+    osc.start(); osc.stop(ac.currentTime + 0.05);
+  } catch(_) {}
+}
+
+function playWinSound() {
+  try {
+    const ac = getAudioCtx();
+    const notes = [523, 659, 784, 1047]; // C E G C
+    notes.forEach((freq, i) => {
+      const osc  = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.connect(gain); gain.connect(ac.destination);
+      osc.frequency.value = freq;
+      osc.type = "sine";
+      const t = ac.currentTime + i * 0.15;
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.2, t + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      osc.start(t); osc.stop(t + 0.4);
+    });
+  } catch(_) {}
+}
+
+function vibrate(pattern) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
+}
+
+spinBtn.addEventListener("click", () => {
+  if (spinning) return;
+  spinning = true;
+  spinBtn.disabled = true;
+
+  vibrate([30, 20, 30]);
+
+  // Pick a random winning prize index
+  const prizeIndex = Math.floor(Math.random() * NUM_SLICES);
+
+  // Total spin: 5–7 full rotations + stop exactly on the target slice.
+  // The pointer is at the top (−π/2). The centre of prizeIndex slice (relative to 0 offset)
+  // sits at: prizeIndex * SLICE. We need that angle to align with top.
+  const fullRotations = (5 + Math.random() * 2) * 2 * Math.PI;
+  // Target: angle offset so that slice prizeIndex centre points to top pointer
+  const targetSliceCentre = prizeIndex * SLICE;
+  // Small random wobble within the slice (±35% of slice width)
+  const wobble = (Math.random() - 0.5) * 0.7 * SLICE;
+  const totalAngle = fullRotations + (2 * Math.PI - targetSliceCentre) + wobble;
+
+  const startAngle = currentAngle;
+  const endAngle   = startAngle + totalAngle;
+  const duration   = 5500; // ms
+  const startTime  = performance.now();
+  let lastTickAngle = startAngle;
+  let tickInterval  = SLICE; // fire a tick sound every slice
+
+  function easeOut(t) {
+    // Custom cubic ease-out: fast start, realistic slow finish
+    return 1 - Math.pow(1 - t, 3.5);
+  }
+
+  function animate(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easedProgress = easeOut(progress);
+    const angle = startAngle + (endAngle - startAngle) * easedProgress;
+
+    currentAngle = angle;
+    drawWheel(angle);
+
+    // Tick sound every slice crossed
+    if (Math.abs(angle - lastTickAngle) >= tickInterval) {
+      lastTickAngle = angle;
+      // Slow down tick frequency as wheel decelerates
+      if (progress < 0.85) playTick();
     }
 
-    /* ── SCROLL REVEAL ── */
-    (function () {
-      var els = document.querySelectorAll('.reveal');
-      if (!('IntersectionObserver' in window)) {
-        els.forEach(function(el) { el.classList.add('visible'); });
-        return;
-      }
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      els.forEach(function(el) { io.observe(el); });
-    })();
-  </script>
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      // Spin complete
+      currentAngle = endAngle % (2 * Math.PI);
+      spinning = false;
 
+      vibrate([50, 30, 100, 30, 200]);
+      playWinSound();
+      showWinModal(PRIZES[prizeIndex]);
+    }
+  }
+
+  requestAnimationFrame(animate);
+});
+
+/* ==========================================================
+   4. WIN MODAL
+   ========================================================== */
+function showWinModal(prize) {
+  prizeEl.textContent = prize.icon + " " + prize.label.replace("\n", " ");
+  winModal.classList.add("show");
+  launchConfetti();
+}
+
+// Close modal if clicking the overlay backdrop (outside modal box)
+winModal.addEventListener("click", (e) => {
+  if (e.target === winModal) {
+    winModal.classList.remove("show");
+    spinBtn.disabled = false;
+  }
+});
+
+/* ==========================================================
+   5. CONFETTI
+   ========================================================== */
+const confettiCanvas = document.getElementById("confettiCanvas");
+const cCtx = confettiCanvas.getContext("2d");
+let confettiParticles = [];
+let confettiRunning = false;
+
+function resizeConfetti() {
+  confettiCanvas.width  = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+resizeConfetti();
+window.addEventListener("resize", resizeConfetti);
+
+function launchConfetti() {
+  confettiParticles = [];
+  const COLORS = ["#FFD700","#FF4757","#7B2FFF","#00E5FF","#FF9500","#00C853","#ffffff"];
+  for (let i = 0; i < 140; i++) {
+    confettiParticles.push({
+      x:  Math.random() * confettiCanvas.width,
+      y:  -10 - Math.random() * 200,
+      vx: (Math.random() - 0.5) * 4,
+      vy: 2 + Math.random() * 5,
+      size: 6 + Math.random() * 8,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      angle: Math.random() * 360,
+      spin:  (Math.random() - 0.5) * 8,
+      shape: Math.random() > 0.5 ? "rect" : "circle",
+      alpha: 1,
+    });
+  }
+  if (!confettiRunning) animateConfetti();
+}
+
+function animateConfetti() {
+  confettiRunning = true;
+  cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  let alive = false;
+
+  confettiParticles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.08; // gravity
+    p.angle += p.spin;
+    if (p.y < confettiCanvas.height + 20) alive = true;
+    if (p.y > confettiCanvas.height * 0.6) p.alpha -= 0.018;
+    p.alpha = Math.max(0, p.alpha);
+
+    cCtx.save();
+    cCtx.globalAlpha = p.alpha;
+    cCtx.translate(p.x, p.y);
+    cCtx.rotate((p.angle * Math.PI) / 180);
+    cCtx.fillStyle = p.color;
+    if (p.shape === "rect") {
+      cCtx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+    } else {
+      cCtx.beginPath();
+      cCtx.arc(0, 0, p.size / 2, 0, 2 * Math.PI);
+      cCtx.fill();
+    }
+    cCtx.restore();
+  });
+
+  if (alive) {
+    requestAnimationFrame(animateConfetti);
+  } else {
+    confettiRunning = false;
+    cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  }
+}
+
+/* ==========================================================
+   6. COUNTDOWN TIMER
+   ========================================================== */
+// Start from a random time between 1:30–2:59 to look authentic
+let totalSeconds = (1 * 3600) + (30 * 60) + Math.floor(Math.random() * (90 * 60));
+
+const cdH = document.getElementById("cdH");
+const cdM = document.getElementById("cdM");
+const cdS = document.getElementById("cdS");
+
+function updateCountdown() {
+  if (totalSeconds <= 0) { totalSeconds = 0; }
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  cdH.textContent = String(h).padStart(2, "0");
+  cdM.textContent = String(m).padStart(2, "0");
+  cdS.textContent = String(s).padStart(2, "0");
+  totalSeconds--;
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ==========================================================
+   7. ACTIVITY FEED — fake but dynamic
+   ========================================================== */
+const feedData = [
+  { name: "Sarah",    loc: "Texas",        prize: "Amazon Gift Card" },
+  { name: "Michael",  loc: "California",   prize: "Mystery Box" },
+  { name: "Jessica",  loc: "Florida",      prize: "Walmart Reward" },
+  { name: "David",    loc: "New York",     prize: "iPhone 16" },
+  { name: "Emily",    loc: "Ohio",         prize: "Free Shopping Credit" },
+  { name: "Carlos",   loc: "Texas",        prize: "Temu Coupon" },
+  { name: "Ashley",   loc: "Georgia",      prize: "Amazon Gift Card" },
+  { name: "Brandon",  loc: "Illinois",     prize: "Mystery Box" },
+  { name: "Megan",    loc: "Arizona",      prize: "Walmart Reward" },
+  { name: "Tyler",    loc: "Nevada",       prize: "iPhone 16" },
+  { name: "Sophia",   loc: "North Carolina", prize: "Free Shopping Credit" },
+  { name: "Jordan",   loc: "Michigan",     prize: "Temu Coupon" },
+];
+
+const timeAgo = ["Just now", "1m ago", "2m ago", "3m ago", "5m ago", "7m ago"];
+const feedList = document.getElementById("feedList");
+
+function getInitials(name) { return name.charAt(0).toUpperCase(); }
+
+function buildFeedItem(entry, time) {
+  const el = document.createElement("div");
+  el.className = "feed-item";
+  el.innerHTML = `
+    <div class="feed-avatar">${getInitials(entry.name)}</div>
+    <div class="feed-text">
+      <strong>${entry.name}</strong> from ${entry.loc} just won
+      <em>${entry.prize}</em> 🎉
+    </div>
+    <span class="feed-time">${time}</span>
+  `;
+  return el;
+}
+
+// Initial render — show 4 items
+function renderFeed() {
+  feedList.innerHTML = "";
+  const shuffled = [...feedData].sort(() => Math.random() - 0.5).slice(0, 4);
+  shuffled.forEach((item, i) => {
+    feedList.appendChild(buildFeedItem(item, timeAgo[i] || timeAgo[timeAgo.length - 1]));
+  });
+}
+renderFeed();
+
+// Rotate a new entry every ~4 s for authenticity
+setInterval(() => {
+  const randomEntry = feedData[Math.floor(Math.random() * feedData.length)];
+  const newItem = buildFeedItem(randomEntry, "Just now");
+  feedList.insertBefore(newItem, feedList.firstChild);
+  // Remove last if too many
+  while (feedList.children.length > 5) feedList.removeChild(feedList.lastChild);
+  // Update all "ago" times
+  Array.from(feedList.children).forEach((el, i) => {
+    const timeEl = el.querySelector(".feed-time");
+    if (timeEl) timeEl.textContent = timeAgo[i] || "8m ago";
+  });
+}, 4200);
+
+/* ==========================================================
+   8. LIVE USER COUNT — subtle fluctuation
+   ========================================================== */
+const userCountEl = document.getElementById("userCount");
+let userCount = 18;
+setInterval(() => {
+  const delta = Math.random() < 0.5 ? 1 : -1;
+  userCount = Math.max(12, Math.min(27, userCount + delta));
+  userCountEl.textContent = userCount;
+}, 3500);
+
+</script>
 </body>
 </html>
